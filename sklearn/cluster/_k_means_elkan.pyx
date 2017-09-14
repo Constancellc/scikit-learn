@@ -18,13 +18,16 @@ from ..metrics import euclidean_distances
 from ._k_means import _centers_dense
 
 
-cdef floating euclidean_dist(floating* a, floating* b, int n_features) nogil:
+cdef floating euclidean_dist(floating* a, floating* b, int n_features): #nogil
     cdef floating result, tmp
     result = 0
     cdef int i
     for i in range(n_features):
-        tmp = (a[i] - b[i])
-        result += tmp * tmp
+        #tmp = (a[i] - b[i])
+        tmp1 = (a[i] - b[i])
+        tmp2 = (a[i-1] - b[i])
+        tmp3 = (a[i] - b[i-1])
+        result += tmp1 * tmp1 + 0.5*tmp2*tmp2 + 0.5*tmp3*tmp3
     return sqrt(result)
 
 
