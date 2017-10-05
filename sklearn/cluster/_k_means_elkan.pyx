@@ -25,9 +25,11 @@ cdef floating euclidean_dist(floating* a, floating* b, int n_features): #nogil
     for i in range(n_features):
         #tmp = (a[i] - b[i])
         tmp1 = (a[i] - b[i])
-        tmp2 = (a[i-1] - b[i])
-        tmp3 = (a[i] - b[i-1])
-        result += tmp1 * tmp1 + 0.5*tmp2*tmp2 + 0.5*tmp3*tmp3
+        tmp2a = (a[i-1] - b[i])
+        tmp2b = (a[i] - b[i-1])
+        tmp3a = (a[i-2] - b[i])
+        tmp3b = (a[i] - b[i-2])
+        result += tmp1 * tmp1 + 0.5*tmp2a*tmp2a + 0.5*tmp2b*tmp2b + 0.25*tmp3a*tmp3a + 0.25*tmp3b*tmp3b 
     return sqrt(result)
 
 
